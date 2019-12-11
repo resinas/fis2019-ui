@@ -109,7 +109,7 @@ class Contacts extends React.Component {
         return(
             <div>
             <Alert message={this.state.errorInfo} onClose={this.handleCloseError} />
-            <table class="table">
+            <table className="table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -117,6 +117,7 @@ class Contacts extends React.Component {
                     <th>&nbsp;</th>
                 </tr>
             </thead>
+            <tbody>
             <NewContact onAddContact={this.addContact}/>
             {this.state.contacts.map((contact) => 
                 ! this.state.isEditing[contact.name] ?
@@ -129,6 +130,7 @@ class Contacts extends React.Component {
                     onChange={this.handleChange.bind(this, contact.name)}
                     onSave={this.handleSave.bind(this, contact.name)}/>
             )}
+            </tbody>
             </table>
             </div>
 
