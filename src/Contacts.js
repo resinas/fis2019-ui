@@ -3,19 +3,36 @@ import Contact from './Contact.js';
 import Alert from './Alert.js';
 import NewContact from './NewContact.js';
 import EditContact from './EditContact.js';
+import ContactsApi from './ContactsApi';
 
 class Contacts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             errorInfo: null,
-            contacts: this.props.contacts,
+            contacts: [],
             isEditing: {}
         };
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCloseError = this.handleCloseError.bind(this);
         this.addContact = this.addContact.bind(this);
+    }
+
+    componentDidMount() {
+        ContactsApi.getAllContacts()
+            .then(
+                (result) => {
+                    this.setState({
+                        contacts: result
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        errorInfo: "Problem with connection to server"
+                    })
+                }
+            )
     }
 
     handleEdit(contact) {
